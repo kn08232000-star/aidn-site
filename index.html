@@ -445,6 +445,18 @@
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+      // ---- Scroll-to-top without polluting the URL with #top ----
+      document.querySelectorAll('a[href="#top"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          history.replaceState(null, "", window.location.pathname);
+        });
+      });
+      if (window.location.hash === "#top") {
+        history.replaceState(null, "", window.location.pathname);
+      }
+
     </script>
   </body>
 </html>
