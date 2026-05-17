@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0a" />
-    <title>aidn — Web Developer & Designer</title>
-    <meta name="description" content="aidn builds modern websites, Shopify stores, and UI/UX redesigns for brands that want to stand out." />
+    <title>aidn</title>
+    <meta name="description" content="aidn — websites, Shopify, and UI/UX redesigns." />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="aidn — Web Developer & Designer" />
+    <meta property="og:title" content="aidn" />
     <meta property="og:description" content="Modern websites, Shopify builds, and UI/UX redesigns for brands that want to stand out." />
     <meta property="og:type" content="website" />
 
     <!-- Favicon (inline SVG to avoid extra requests) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Inter,system-ui,sans-serif' font-size='18' font-weight='700' fill='%2334d399'%3EA%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2338bdf8'/%3E%3Ctext x='50%25' y='66%25' text-anchor='middle' font-family='Space Grotesk,Inter,sans-serif' font-size='24' font-weight='700' fill='%23000000'%3Ea%3C/text%3E%3C/svg%3E" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,9 +39,9 @@
                 700: "#222222",
               },
               accent: {
-                DEFAULT: "#34d399",
-                soft: "#34d39933",
-                glow: "#34d39966",
+                DEFAULT: "#38bdf8",
+                soft: "#38bdf833",
+                glow: "#38bdf866",
               },
             },
             animation: {
@@ -60,8 +60,8 @@
                 "100%": { opacity: 1 },
               },
               pulseDot: {
-                "0%, 100%": { boxShadow: "0 0 0 0 rgba(52, 211, 153, 0.6)" },
-                "50%": { boxShadow: "0 0 0 8px rgba(52, 211, 153, 0)" },
+                "0%, 100%": { boxShadow: "0 0 0 0 rgba(56, 189, 248, 0.6)" },
+                "50%": { boxShadow: "0 0 0 8px rgba(56, 189, 248, 0)" },
               },
               shimmer: {
                 "0%": { backgroundPosition: "-200% 0" },
@@ -77,12 +77,18 @@
       :root {
         color-scheme: dark;
       }
-      html, body { background: #0a0a0a; }
+      html, body { background-color: #0a0a0a; }
       body {
         font-family: "Inter", system-ui, sans-serif;
         color: #fafafa;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 56px 56px;
+        background-position: -1px -1px;
+        background-attachment: fixed;
       }
 
       /* Subtle grain overlay */
@@ -105,7 +111,7 @@
         z-index: 0;
         background: radial-gradient(
           600px circle at var(--mx, 50%) var(--my, 30%),
-          rgba(52, 211, 153, 0.07),
+          rgba(56, 189, 248, 0.07),
           transparent 60%
         );
         transition: background-position 0.15s ease-out;
@@ -127,7 +133,7 @@
           90deg,
           #fafafa 0%,
           #fafafa 40%,
-          #34d399 50%,
+          #38bdf8 50%,
           #fafafa 60%,
           #fafafa 100%
         );
@@ -149,7 +155,7 @@
         inset: -1px;
         border-radius: inherit;
         padding: 1px;
-        background: linear-gradient(135deg, transparent, rgba(52, 211, 153, 0.5), transparent);
+        background: linear-gradient(135deg, transparent, rgba(56, 189, 248, 0.5), transparent);
         -webkit-mask:
           linear-gradient(#000 0 0) content-box,
           linear-gradient(#000 0 0);
@@ -170,7 +176,7 @@
       .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
       /* Selection */
-      ::selection { background: #34d399; color: #0a0a0a; }
+      ::selection { background: #38bdf8; color: #0a0a0a; }
 
       /* Custom scrollbar */
       ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -179,7 +185,7 @@
       ::-webkit-scrollbar-thumb:hover { background: #2f2f2f; }
 
       /* Focus rings */
-      :focus-visible { outline: 2px solid #34d399; outline-offset: 3px; border-radius: 4px; }
+      :focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; border-radius: 4px; }
 
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after {
@@ -199,7 +205,7 @@
     <header class="relative z-20">
       <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 pt-8 sm:pt-10">
         <a href="#top" class="group inline-flex items-center gap-2 text-sm font-medium tracking-tight text-white/80 hover:text-white">
-          <span class="grid h-7 w-7 place-items-center rounded-md bg-white/5 ring-1 ring-white/10 font-display font-bold text-accent group-hover:bg-accent/10 transition-colors">A</span>
+          <span class="grid h-7 w-7 place-items-center rounded-md bg-accent ring-1 ring-accent/40 font-display font-bold text-ink-950 transition-colors">a</span>
           <span class="font-mono text-xs uppercase tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">aidn</span>
         </a>
         <ul class="hidden items-center gap-8 text-sm text-white/60 sm:flex">
@@ -218,20 +224,19 @@
     <!-- ================= HERO ================= -->
     <main id="top" class="relative z-10">
       <section class="mx-auto flex max-w-3xl flex-col items-center px-6 pt-20 pb-24 text-center sm:pt-28 sm:pb-32">
-        <!-- Avatar with cursor-follow parallax -->
+        <!-- Avatar: stylized aidn logo (chunky lowercase "a" on a blue grid square). Swap for a real avatar later by replacing the <svg> with <img src="/avatar.jpg" alt="aidn" />. -->
         <div id="avatar" class="relative mb-8 animate-fade-in">
-          <div class="absolute inset-0 -z-10 rounded-full bg-accent/20 blur-2xl"></div>
-          <div class="h-24 w-24 overflow-hidden rounded-full ring-1 ring-white/15 sm:h-28 sm:w-28">
-            <!-- Replace this SVG with a real avatar later (e.g. <img src="/avatar.jpg" alt="aidn" />) -->
-            <svg viewBox="0 0 100 100" class="h-full w-full" aria-label="aidn avatar">
+          <div class="absolute inset-0 -z-10 rounded-3xl bg-accent/30 blur-3xl"></div>
+          <div class="h-28 w-28 overflow-hidden rounded-3xl ring-1 ring-white/15 sm:h-32 sm:w-32">
+            <svg viewBox="0 0 100 100" class="h-full w-full" aria-label="aidn">
               <defs>
-                <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#171717" />
-                  <stop offset="100%" stop-color="#262626" />
-                </linearGradient>
+                <pattern id="avgrid" width="7" height="7" patternUnits="userSpaceOnUse">
+                  <path d="M 7 0 L 0 0 0 7" fill="none" stroke="rgba(0,0,0,0.07)" stroke-width="0.5"/>
+                </pattern>
               </defs>
-              <rect width="100" height="100" fill="url(#ag)" />
-              <text x="50" y="58" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="42" font-weight="700" fill="#fafafa">A</text>
+              <rect width="100" height="100" fill="#38bdf8" />
+              <rect width="100" height="100" fill="url(#avgrid)" />
+              <text x="50" y="78" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="82" font-weight="700" fill="#0a0a0a">a</text>
             </svg>
           </div>
         </div>
@@ -248,20 +253,19 @@
           <span class="tracking-wider">ONLINE — OPEN FOR WORK</span>
         </div>
 
-        <!-- Headline -->
-        <h1 class="font-display text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-7xl md:text-[5.5rem] animate-fade-up" style="animation-delay: 160ms">
-          <span class="block">Building the web,</span>
-          <span class="shimmer-text">beautifully.</span>
+        <!-- Headline (just the wordmark, big) -->
+        <h1 class="font-display text-7xl font-bold leading-[0.9] tracking-tight text-white sm:text-8xl md:text-[9rem] animate-fade-up" style="animation-delay: 160ms">
+          <span class="shimmer-text">aidn<span class="text-accent">.</span></span>
         </h1>
 
         <!-- Tagline -->
-        <p class="mt-8 max-w-xl text-pretty text-base leading-relaxed text-white/55 sm:text-lg animate-fade-up" style="animation-delay: 240ms">
-          Modern websites, Shopify builds, and UI/UX redesigns for brands that want to stand out.
+        <p class="mt-8 max-w-md text-pretty text-base leading-relaxed text-white/60 animate-fade-up" style="animation-delay: 240ms">
+          Websites, Shopify builds, and UI/UX redesigns.
         </p>
 
         <!-- CTAs -->
         <div class="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-up" style="animation-delay: 320ms">
-          <a href="#contact" class="magnetic group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-ink-950 transition-all hover:bg-emerald-300 cursor-pointer">
+          <a href="#contact" class="magnetic group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-ink-950 transition-all hover:bg-sky-300 cursor-pointer">
             Get in touch
             <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -272,14 +276,9 @@
 
       <!-- ================= SERVICES ================= -->
       <section id="services" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-        <div class="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <div class="reveal">
-            <p class="font-mono text-xs uppercase tracking-[0.22em] text-accent/80">Services</p>
-            <h2 class="mt-3 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">What I build</h2>
-          </div>
-          <p class="reveal max-w-md text-sm leading-relaxed text-white/55">
-            From a single-product Shopify launch to a full brand refresh — every project is shipped fast, accessible, and built to convert.
-          </p>
+        <div class="reveal mb-14">
+          <p class="font-mono text-xs uppercase tracking-[0.22em] text-accent/80">Services</p>
+          <h2 class="mt-3 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">What I build</h2>
         </div>
 
         <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -291,15 +290,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 10-8 0v4M5 9h14l-1 12H6L5 9z" />
               </svg>
             </div>
-            <h3 class="font-display text-xl font-semibold text-white">E-commerce & Shopify</h3>
+            <h3 class="font-display text-xl font-semibold text-white">Shopify</h3>
             <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Custom Shopify themes, fast product pages, and stores designed to actually sell. Headless setups available.
+              Custom stores, themes, and product pages.
             </p>
-            <ul class="mt-5 space-y-1.5 text-xs text-white/45">
-              <li>· Theme customization & dev</li>
-              <li>· Product page optimization</li>
-              <li>· Checkout & conversion tuning</li>
-            </ul>
           </article>
 
           <!-- Card 2 -->
@@ -310,15 +304,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z" />
               </svg>
             </div>
-            <h3 class="font-display text-xl font-semibold text-white">UI/UX Design & Redesigns</h3>
+            <h3 class="font-display text-xl font-semibold text-white">Design</h3>
             <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Wireframes, design systems, and end-to-end redesigns of tired sites. Modern, accessible, conversion-led.
+              Brand work and full site redesigns.
             </p>
-            <ul class="mt-5 space-y-1.5 text-xs text-white/45">
-              <li>· Brand & visual identity</li>
-              <li>· Component systems</li>
-              <li>· Mobile-first responsive</li>
-            </ul>
           </article>
 
           <!-- Card 3 -->
@@ -329,15 +318,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
             </div>
-            <h3 class="font-display text-xl font-semibold text-white">Web Development</h3>
+            <h3 class="font-display text-xl font-semibold text-white">Web Dev</h3>
             <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Landing pages, portfolios, and full web apps. Built with the modern stack — fast, secure, and easy to maintain.
+              Landing pages, portfolios, and web apps.
             </p>
-            <ul class="mt-5 space-y-1.5 text-xs text-white/45">
-              <li>· React / Next.js apps</li>
-              <li>· Supabase backends</li>
-              <li>· SEO & performance</li>
-            </ul>
           </article>
         </div>
       </section>
@@ -348,14 +332,14 @@
           <p class="font-mono text-xs uppercase tracking-[0.22em] text-accent/80">Get in touch</p>
           <h2 class="mt-5 font-display text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">Let's build something.</h2>
           <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/55">
-            Tell me about your project — landing page, Shopify store, or redesign. I usually reply within a day.
+            Tell me about your project. I'll reply within a day.
           </p>
         </div>
 
         <!-- WORK -->
         <p class="reveal ml-2 mt-14 mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">+ Work</p>
         <a href="mailto:info@aidn.site"
-          class="reveal magnetic group flex items-center gap-4 rounded-2xl border border-accent/40 bg-white/[0.03] p-4 shadow-[0_0_40px_-10px_rgba(52,211,153,0.45)] transition-all hover:border-accent/70 hover:bg-white/[0.05] cursor-pointer">
+          class="reveal magnetic group flex items-center gap-4 rounded-2xl border border-accent/40 bg-white/[0.03] p-4 shadow-[0_0_40px_-10px_rgba(56,189,248,0.45)] transition-all hover:border-accent/70 hover:bg-white/[0.05] cursor-pointer">
           <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/20 ring-1 ring-accent/40">
             <!-- envelope icon -->
             <svg class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
