@@ -144,7 +144,9 @@ Things you'll want to swap in `index.html` as you go:
 
 ```
 aidn-site/
-├── index.html      # the entire site
+├── index.html      # markup
+├── styles.css      # all styles
+├── script.js       # interactivity (cursor, typewriter, magnetic buttons, bg canvas)
 ├── netlify.toml    # Netlify config (static, no build)
 ├── .gitignore
 └── README.md       # this file

@@ -1,462 +1,219 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <title>aidn</title>
-    <meta name="description" content="aidn — websites, Shopify, and UI/UX redesigns." />
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07070a" />
+  <title>aidn</title>
+  <meta name="description" content="aidn — Shopify, UI/UX, and modern web development. Fast, beautiful sites built by hand." />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="aidn" />
-    <meta property="og:description" content="Modern websites, Shopify builds, and UI/UX redesigns for brands that want to stand out." />
-    <meta property="og:type" content="website" />
+  <meta property="og:title" content="aidn" />
+  <meta property="og:description" content="Shopify, UI/UX, and modern web development. Fast, beautiful sites built by hand." />
+  <meta property="og:type" content="website" />
 
-    <!-- Favicon (inline SVG to avoid extra requests) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2338bdf8'/%3E%3Ctext x='50%25' y='66%25' text-anchor='middle' font-family='Space Grotesk,Inter,sans-serif' font-size='24' font-weight='700' fill='%23000000'%3Ea%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2300ffd1'/%3E%3Cstop offset='.5' stop-color='%23c084fc'/%3E%3Cstop offset='1' stop-color='%23ff4d8d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%2307070a'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' font-family='Space Grotesk, sans-serif' font-weight='700' font-size='38' fill='url(%23g)'%3Ea%3C/text%3E%3C/svg%3E" />
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-              display: ["Space Grotesk", "Inter", "sans-serif"],
-              mono: ["JetBrains Mono", "ui-monospace", "monospace"],
-            },
-            colors: {
-              ink: {
-                950: "#0a0a0a",
-                900: "#111111",
-                800: "#171717",
-                700: "#222222",
-              },
-              accent: {
-                DEFAULT: "#38bdf8",
-                soft: "#38bdf833",
-                glow: "#38bdf866",
-              },
-            },
-            animation: {
-              "fade-up": "fadeUp 0.9s cubic-bezier(.2,.7,.2,1) both",
-              "fade-in": "fadeIn 1.2s ease-out both",
-              "pulse-dot": "pulseDot 2s ease-in-out infinite",
-              shimmer: "shimmer 3s linear infinite",
-            },
-            keyframes: {
-              fadeUp: {
-                "0%": { opacity: 0, transform: "translateY(18px)" },
-                "100%": { opacity: 1, transform: "translateY(0)" },
-              },
-              fadeIn: {
-                "0%": { opacity: 0 },
-                "100%": { opacity: 1 },
-              },
-              pulseDot: {
-                "0%, 100%": { boxShadow: "0 0 0 0 rgba(56, 189, 248, 0.6)" },
-                "50%": { boxShadow: "0 0 0 8px rgba(56, 189, 248, 0)" },
-              },
-              shimmer: {
-                "0%": { backgroundPosition: "-200% 0" },
-                "100%": { backgroundPosition: "200% 0" },
-              },
-            },
-          },
-        },
-      };
-    </script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Animated dot-grid canvas background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-    <style>
-      :root {
-        color-scheme: dark;
-      }
-      html, body { background-color: #0a0a0a; }
-      body {
-        font-family: "Inter", system-ui, sans-serif;
-        color: #fafafa;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-        background-size: 56px 56px;
-        background-position: -1px -1px;
-        background-attachment: fixed;
-      }
+  <!-- Mouse spotlight -->
+  <div class="spotlight" aria-hidden="true"></div>
 
-      /* Subtle grain overlay */
-      .grain::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-        opacity: 0.035;
-        mix-blend-mode: overlay;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      }
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
 
-      /* Animated radial spotlight that follows cursor */
-      .spotlight {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        background: radial-gradient(
-          600px circle at var(--mx, 50%) var(--my, 30%),
-          rgba(56, 189, 248, 0.07),
-          transparent 60%
-        );
-        transition: background-position 0.15s ease-out;
-      }
+  <!-- Nav -->
+  <header class="nav">
+    <a href="#top" class="brand" data-magnetic>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <defs>
+            <linearGradient id="brand-g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#00ffd1" />
+              <stop offset=".5" stop-color="#c084fc" />
+              <stop offset="1" stop-color="#ff4d8d" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="8" fill="url(#brand-g)" />
+          <text x="50%" y="66%" text-anchor="middle"
+                font-family="Space Grotesk, sans-serif" font-weight="700" font-size="20" fill="#07070a">a</text>
+        </svg>
+      </span>
+      <span class="brand-name">@aidn</span>
+    </a>
 
-      /* Animated underline link */
-      .link-underline {
-        background-image: linear-gradient(currentColor, currentColor);
-        background-size: 0% 1px;
-        background-repeat: no-repeat;
-        background-position: 0 100%;
-        transition: background-size 0.4s cubic-bezier(.2,.7,.2,1);
-      }
-      .link-underline:hover { background-size: 100% 1px; }
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services" data-magnetic>Services</a>
+      <a href="#contact" data-magnetic>Contact</a>
+    </nav>
 
-      /* Shimmer headline */
-      .shimmer-text {
-        background: linear-gradient(
-          90deg,
-          #fafafa 0%,
-          #fafafa 40%,
-          #38bdf8 50%,
-          #fafafa 60%,
-          #fafafa 100%
-        );
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: shimmer 6s linear infinite;
-      }
+    <a href="#contact" class="nav-cta" data-magnetic>
+      <span class="dot-live"></span>
+      Hire me
+    </a>
+  </header>
 
-      /* Card glow on hover */
-      .card-glow {
-        position: relative;
-        transition: transform 0.35s cubic-bezier(.2,.7,.2,1), border-color 0.3s ease;
-      }
-      .card-glow::after {
-        content: "";
-        position: absolute;
-        inset: -1px;
-        border-radius: inherit;
-        padding: 1px;
-        background: linear-gradient(135deg, transparent, rgba(56, 189, 248, 0.5), transparent);
-        -webkit-mask:
-          linear-gradient(#000 0 0) content-box,
-          linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor;
-                mask-composite: exclude;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-        pointer-events: none;
-      }
-      .card-glow:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.18); }
-      .card-glow:hover::after { opacity: 1; }
-
-      /* Magnetic button */
-      .magnetic { transition: transform 0.25s cubic-bezier(.2,.7,.2,1); }
-
-      /* Scroll reveal */
-      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1); }
-      .reveal.is-visible { opacity: 1; transform: translateY(0); }
-
-      /* Selection */
-      ::selection { background: #38bdf8; color: #0a0a0a; }
-
-      /* Custom scrollbar */
-      ::-webkit-scrollbar { width: 10px; height: 10px; }
-      ::-webkit-scrollbar-track { background: #0a0a0a; }
-      ::-webkit-scrollbar-thumb { background: #222; border-radius: 8px; }
-      ::-webkit-scrollbar-thumb:hover { background: #2f2f2f; }
-
-      /* Focus rings */
-      :focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; border-radius: 4px; }
-
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-          animation-duration: 0.001ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.001ms !important;
-        }
-        .spotlight { display: none; }
-      }
-    </style>
-  </head>
-
-  <body class="grain antialiased min-h-screen overflow-x-hidden">
-    <div class="spotlight" aria-hidden="true"></div>
-
-    <!-- ================= NAV ================= -->
-    <header class="relative z-20">
-      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 pt-8 sm:pt-10">
-        <a href="#top" class="group inline-flex items-center gap-2 text-sm font-medium tracking-tight text-white/80 hover:text-white">
-          <span class="grid h-7 w-7 place-items-center rounded-md bg-accent ring-1 ring-accent/40 font-display font-bold text-ink-950 transition-colors">a</span>
-          <span class="font-mono text-xs uppercase tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">aidn</span>
-        </a>
-        <ul class="hidden items-center gap-8 text-sm text-white/60 sm:flex">
-          <li><a href="#services" class="link-underline hover:text-white transition-colors">Services</a></li>
-          <li><a href="#contact" class="link-underline hover:text-white transition-colors">Contact</a></li>
-        </ul>
-        <a href="#contact" class="magnetic group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-white backdrop-blur transition-all hover:border-accent/60 hover:bg-accent/10 cursor-pointer">
-          Start a project
-          <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-      </nav>
-    </header>
-
-    <!-- ================= HERO ================= -->
-    <main id="top" class="relative z-10">
-      <section class="mx-auto flex max-w-3xl flex-col items-center px-6 pt-20 pb-24 text-center sm:pt-28 sm:pb-32">
-        <!-- Avatar: stylized aidn logo (chunky lowercase "a" on a blue grid square). Swap for a real avatar later by replacing the <svg> with <img src="/avatar.jpg" alt="aidn" />. -->
-        <div id="avatar" class="relative mb-8 animate-fade-in">
-          <div class="absolute inset-0 -z-10 rounded-3xl bg-accent/30 blur-3xl"></div>
-          <div class="h-28 w-28 overflow-hidden rounded-3xl ring-1 ring-white/15 sm:h-32 sm:w-32">
-            <svg viewBox="0 0 100 100" class="h-full w-full" aria-label="aidn">
-              <defs>
-                <pattern id="avgrid" width="7" height="7" patternUnits="userSpaceOnUse">
-                  <path d="M 7 0 L 0 0 0 7" fill="none" stroke="rgba(0,0,0,0.07)" stroke-width="0.5"/>
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="#38bdf8" />
-              <rect width="100" height="100" fill="url(#avgrid)" />
-              <text x="50" y="78" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="82" font-weight="700" fill="#0a0a0a">a</text>
-            </svg>
-          </div>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="status" data-reveal>
+          <span class="status-pulse"></span>
+          <span class="status-text">ONLINE — OPEN FOR WORK</span>
         </div>
 
-        <!-- Handle -->
-        <p class="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-white/45 animate-fade-up">@aidn</p>
-
-        <!-- Status badge -->
-        <div class="mb-10 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium text-white/80 backdrop-blur animate-fade-up" style="animation-delay: 80ms">
-          <span class="relative inline-flex h-1.5 w-1.5 items-center justify-center">
-            <span class="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-accent"></span>
-            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent"></span>
-          </span>
-          <span class="tracking-wider">ONLINE — OPEN FOR WORK</span>
-        </div>
-
-        <!-- Headline (just the wordmark, big) -->
-        <h1 class="font-display text-7xl font-bold leading-[0.9] tracking-tight text-white sm:text-8xl md:text-[9rem] animate-fade-up" style="animation-delay: 160ms">
-          <span class="shimmer-text">aidn<span class="text-accent">.</span></span>
+        <h1 class="hero-title" data-reveal>
+          <span class="line">Shopify, UI/UX,</span>
+          <span class="line gradient-text">&amp; modern web.</span>
+          <span class="line">building <span class="type" id="type"></span><span class="caret">_</span></span>
         </h1>
 
-        <!-- Tagline -->
-        <p class="mt-8 max-w-md text-pretty text-base leading-relaxed text-white/60 animate-fade-up" style="animation-delay: 240ms">
-          Websites, Shopify builds, and UI/UX redesigns.
+        <p class="hero-sub" data-reveal>
+          I'm <strong>aidn</strong> — I build Shopify stores, modern websites, and UI/UX redesigns for brands that want to look sharp.
         </p>
 
-        <!-- CTAs -->
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-up" style="animation-delay: 320ms">
-          <a href="#contact" class="magnetic group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-ink-950 transition-all hover:bg-sky-300 cursor-pointer">
-            Get in touch
-            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+        <div class="hero-cta" data-reveal>
+          <a href="#contact" class="btn btn-primary" data-magnetic>
+            <span>Start a project</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M5 12h12.17l-3.58-3.59L15 7l6 6-6 6-1.41-1.41L17.17 14H5z"/></svg>
           </a>
-        </div>
-      </section>
-
-      <!-- ================= SERVICES ================= -->
-      <section id="services" class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-        <div class="reveal mb-14">
-          <p class="font-mono text-xs uppercase tracking-[0.22em] text-accent/80">Services</p>
-          <h2 class="mt-3 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">What I build</h2>
-        </div>
-
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Card 1 -->
-          <article class="card-glow reveal group rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors">
-            <div class="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent ring-1 ring-accent/20">
-              <!-- shopping-bag icon -->
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 10-8 0v4M5 9h14l-1 12H6L5 9z" />
-              </svg>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-white">Shopify</h3>
-            <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Custom stores, themes, and product pages.
-            </p>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="card-glow reveal group rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors" style="transition-delay: 80ms">
-            <div class="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent ring-1 ring-accent/20">
-              <!-- sparkles icon -->
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z" />
-              </svg>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-white">Design</h3>
-            <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Brand work and full site redesigns.
-            </p>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="card-glow reveal group rounded-2xl border border-white/10 bg-white/[0.02] p-7 transition-colors sm:col-span-2 lg:col-span-1" style="transition-delay: 160ms">
-            <div class="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent ring-1 ring-accent/20">
-              <!-- code icon -->
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-white">Web Dev</h3>
-            <p class="mt-3 text-sm leading-relaxed text-white/55">
-              Landing pages, portfolios, and web apps.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- ================= CONTACT ================= -->
-      <section id="contact" class="mx-auto max-w-xl px-6 py-32 sm:py-40">
-        <div class="reveal text-center">
-          <p class="font-mono text-xs uppercase tracking-[0.22em] text-accent/80">Get in touch</p>
-          <h2 class="mt-5 font-display text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">Let's build something.</h2>
-          <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/55">
-            Tell me about your project. I'll reply within a day.
-          </p>
-        </div>
-
-        <!-- WORK -->
-        <p class="reveal ml-2 mt-14 mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">+ Work</p>
-        <a href="mailto:info@aidn.site"
-          class="reveal magnetic group flex items-center gap-4 rounded-2xl border border-accent/40 bg-white/[0.03] p-4 shadow-[0_0_40px_-10px_rgba(56,189,248,0.45)] transition-all hover:border-accent/70 hover:bg-white/[0.05] cursor-pointer">
-          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/20 ring-1 ring-accent/40">
-            <!-- envelope icon -->
-            <svg class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-            </svg>
-          </span>
-          <span class="flex flex-1 flex-col">
-            <span class="font-display text-base font-semibold text-white">Email</span>
-            <span class="font-mono text-xs text-white/50">info@aidn.site</span>
-          </span>
-          <svg class="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-
-        <!-- PAYMENT -->
-        <p class="reveal ml-2 mt-8 mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-white/35">+ Payment</p>
-        <a href="https://paypal.me/a5iden" target="_blank" rel="noopener noreferrer"
-          class="reveal magnetic group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all hover:border-white/25 hover:bg-white/[0.05] cursor-pointer">
-          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/15 ring-1 ring-accent/30">
-            <!-- currency-dollar icon -->
-            <svg class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-2.21 0-4-1.343-4-3s1.79-3 4-3 4 1.343 4 3z" />
-            </svg>
-          </span>
-          <span class="flex flex-1 flex-col">
-            <span class="font-display text-base font-semibold text-white">PayPal</span>
-            <span class="font-mono text-xs text-white/50">paypal.me/a5iden</span>
-          </span>
-          <svg class="h-4 w-4 text-white/40 transition-all group-hover:translate-x-0.5 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-      </section>
-    </main>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="relative z-10 border-t border-white/5">
-      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-xs text-white/40 sm:flex-row">
-        <p>© <span id="year"></span> aidn. Built with care.</p>
-        <div class="flex items-center gap-5">
-          <a href="mailto:info@aidn.site" class="link-underline hover:text-white transition-colors">info@aidn.site</a>
-          <span class="text-white/20">·</span>
-          <a href="#top" class="link-underline hover:text-white transition-colors">Back to top</a>
+          <a href="#services" class="btn btn-ghost" data-magnetic>What I do</a>
         </div>
       </div>
-    </footer>
 
-    <!-- ================= JS ================= -->
-    <script>
-      // ---- Year in footer ----
-      document.getElementById("year").textContent = new Date().getFullYear();
+      <a href="#services" class="scroll-hint" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
 
-      // ---- Cursor-follow spotlight ----
-      const spotlight = document.querySelector(".spotlight");
-      if (spotlight && window.matchMedia("(pointer: fine)").matches) {
-        let raf = null;
-        window.addEventListener("mousemove", (e) => {
-          if (raf) return;
-          raf = requestAnimationFrame(() => {
-            spotlight.style.setProperty("--mx", e.clientX + "px");
-            spotlight.style.setProperty("--my", e.clientY + "px");
-            raf = null;
-          });
-        });
-      }
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Shopify</span><span>•</span>
+        <span>Liquid</span><span>•</span>
+        <span>HTML</span><span>•</span>
+        <span>CSS</span><span>•</span>
+        <span>JavaScript</span><span>•</span>
+        <span>TypeScript</span><span>•</span>
+        <span>React</span><span>•</span>
+        <span>Next.js</span><span>•</span>
+        <span>Tailwind</span><span>•</span>
+        <span>Figma</span><span>•</span>
+        <span>Netlify</span><span>•</span>
+        <!-- duplicated for seamless loop -->
+        <span>Shopify</span><span>•</span>
+        <span>Liquid</span><span>•</span>
+        <span>HTML</span><span>•</span>
+        <span>CSS</span><span>•</span>
+        <span>JavaScript</span><span>•</span>
+        <span>TypeScript</span><span>•</span>
+        <span>React</span><span>•</span>
+        <span>Next.js</span><span>•</span>
+        <span>Tailwind</span><span>•</span>
+        <span>Figma</span><span>•</span>
+        <span>Netlify</span><span>•</span>
+      </div>
+    </section>
 
-      // ---- Subtle parallax on hero avatar ----
-      const avatar = document.getElementById("avatar");
-      if (avatar && window.matchMedia("(pointer: fine)").matches) {
-        window.addEventListener("mousemove", (e) => {
-          const dx = (e.clientX / window.innerWidth - 0.5) * 12;
-          const dy = (e.clientY / window.innerHeight - 0.5) * 12;
-          avatar.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-        });
-      }
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">01 — Services</span>
+        <h2 class="section-title">What I <span class="gradient-text">build</span>.</h2>
+        <p class="section-lede">Three things, done well.</p>
+      </header>
 
-      // ---- Magnetic buttons ----
-      document.querySelectorAll(".magnetic").forEach((el) => {
-        if (!window.matchMedia("(pointer: fine)").matches) return;
-        el.addEventListener("mousemove", (e) => {
-          const r = el.getBoundingClientRect();
-          const dx = (e.clientX - (r.left + r.width / 2)) * 0.2;
-          const dy = (e.clientY - (r.top + r.height / 2)) * 0.2;
-          el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-        });
-        el.addEventListener("mouseleave", () => {
-          el.style.transform = "translate3d(0,0,0)";
-        });
-      });
+      <div class="cards">
+        <article class="card tilt" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-num">/01</div>
+          <h3 class="card-title">Shopify &amp; e-commerce</h3>
+          <p class="card-body">
+            Custom Shopify themes and stores — built from scratch or refined from a starter.
+            Headless setups, product pages, and checkout work.
+          </p>
+          <ul class="card-list">
+            <li>Custom theme development</li>
+            <li>Headless Shopify (Next.js)</li>
+            <li>Product &amp; collection pages</li>
+            <li>Speed &amp; conversion tuning</li>
+          </ul>
+        </article>
 
-      // ---- Scroll reveal ----
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              io.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-      );
-      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+        <article class="card tilt" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-num">/02</div>
+          <h3 class="card-title">UI/UX design &amp; redesigns</h3>
+          <p class="card-body">
+            Brand work and full site redesigns. Wireframes, component systems, and
+            polished end-to-end designs that actually ship.
+          </p>
+          <ul class="card-list">
+            <li>Brand &amp; visual identity</li>
+            <li>Design systems</li>
+            <li>Wireframes &amp; prototypes</li>
+            <li>Mobile-first responsive</li>
+          </ul>
+        </article>
 
-      // ---- Scroll-to-top without polluting the URL with #top ----
-      document.querySelectorAll('a[href="#top"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          history.replaceState(null, "", window.location.pathname);
-        });
-      });
-      if (window.location.hash === "#top") {
-        history.replaceState(null, "", window.location.pathname);
-      }
+        <article class="card tilt" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-num">/03</div>
+          <h3 class="card-title">Modern web development</h3>
+          <p class="card-body">
+            Landing pages, portfolios, and full web apps in React &amp; Next.js.
+            Fast, accessible, and built to last.
+          </p>
+          <ul class="card-list">
+            <li>React / Next.js / TypeScript</li>
+            <li>Landing &amp; marketing sites</li>
+            <li>Web apps &amp; integrations</li>
+            <li>SEO &amp; Core Web Vitals</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-    </script>
-  </body>
+    <!-- CONTACT -->
+    <section class="section section-contact" id="contact">
+      <div class="contact-card" data-reveal>
+        <span class="eyebrow">02 — Let's talk</span>
+        <h2 class="contact-title">
+          Got an idea?
+          <span class="gradient-text">Let's build it.</span>
+        </h2>
+        <p class="contact-sub">
+          Tell me what you're working on. I'll reply within a day.
+        </p>
+
+        <div class="contact-actions">
+          <a class="btn btn-primary btn-lg" href="mailto:info@aidn.site?subject=Project%20inquiry&body=Hey%20aidn%2C%0A%0AHere's%20what%20I'm%20working%20on%3A%0A%0A" data-magnetic>
+            <span>info@aidn.site</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M5 12h12.17l-3.58-3.59L15 7l6 6-6 6-1.41-1.41L17.17 14H5z"/></svg>
+          </a>
+          <button class="btn btn-ghost btn-lg" id="copy-email" data-magnetic>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+            <span id="copy-label">Copy email</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> aidn. Hand-built.</span>
+    </div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+</body>
 </html>
