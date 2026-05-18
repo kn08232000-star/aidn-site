@@ -53,7 +53,21 @@
   .story-image-wrap img{width:100%;height:100%;object-fit:cover;display:block}
   .story-image-cap{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:18px;text-align:center;font-family:'Inter',sans-serif}
   .footer{border-top:1px solid rgba(43,24,16,.15);padding:30px 48px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.55;flex-wrap:wrap;gap:12px}
-  @media(max-width:600px){.nav{padding:18px 24px}.nav-r{display:none}.product{padding:0 24px;margin:60px auto}.footer{padding:24px}}
+  @media(max-width:600px){
+    .nav{padding:18px 24px}
+    .nav-r{display:none}
+    .nav-brand{font-size:20px;letter-spacing:.25em}
+    .nav{grid-template-columns:1fr auto}
+    .hero{margin-top:40px}
+    .hero h1{font-size:2.2rem}
+    .product{padding:0 24px;margin:60px auto;gap:48px}
+    .product-info h2{font-size:1.9rem}
+    .story{margin:80px auto;padding:0 24px}
+    .story p{font-size:1.2rem}
+    .story-image{padding:0 24px;margin-bottom:60px}
+    .story-image-wrap{aspect-ratio:4/3}
+    .footer{padding:24px}
+  }
 </style>
 </head>
 <body>

@@ -91,7 +91,31 @@
   .life-c h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-.025em;margin-bottom:14px;line-height:1.1}
   .life-c h2 .g{background:linear-gradient(135deg,#c084fc,#00c8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
   .life-c p{color:rgba(255,255,255,.65);margin-bottom:22px}
-  @media(max-width:560px){.nav{padding:14px 20px}.nav-c a:not(.nav-cta){display:none}}
+  @media(max-width:760px){
+    .trusted-logos{gap:14px 22px;flex-wrap:wrap}
+    .trusted-logos span{font-size:14px}
+    .life{margin-top:80px;gap:28px}
+    .life-c h2{font-size:1.8rem}
+    .features,.pricing{margin:80px auto}
+    .features-h,.pricing h2{margin-bottom:40px}
+  }
+  @media(max-width:560px){
+    .nav{padding:14px 18px}
+    .nav-c a:not(.nav-cta){display:none}
+    .hero{padding:70px 18px 40px}
+    .hero h1{font-size:2.4rem}
+    .hero p{font-size:1rem}
+    .ctas{flex-direction:column;align-items:stretch;gap:10px}
+    .ctas .btn{justify-content:center}
+    .dash{margin:0 -2px}
+    .dash-content{padding:14px;min-height:240px}
+    .feat{padding:24px}
+    .tier{padding:28px 22px}
+    .tier.pop{transform:none;margin-top:14px}
+    .tier-price{font-size:2.4rem}
+    .life{margin-top:60px}
+    .ftr{padding:20px}
+  }
 </style>
 </head>
 <body>

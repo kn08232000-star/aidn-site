@@ -61,11 +61,21 @@
   @media(max-width:720px){
     .nav{padding:18px 24px}
     .nav-r{display:none}
-    .hero{padding:40px 24px;flex-direction:column;justify-content:flex-end;min-height:75vh}
-    .hero-photo{width:100%;opacity:.35}
-    .hero-content{margin-top:auto}
-    .visit{padding:60px 24px}
-    .gallery{padding:0 24px;margin:60px auto}
+    .hero{padding:40px 24px;flex-direction:column;justify-content:flex-end;min-height:80vh}
+    .hero-photo{width:100%;opacity:.85}
+    .hero-photo::after{background:linear-gradient(to bottom,transparent 25%,rgba(247,240,227,.65) 60%,rgba(247,240,227,.96) 88%)}
+    .hero-content{margin-top:auto;max-width:100%}
+    .hero h1{font-size:4.2rem}
+    .hero p{font-size:1rem;max-width:100%}
+    .about{margin:80px auto;padding:0 24px}
+    .about p{font-size:1.3rem}
+    .menu{margin:80px auto;padding:0 24px}
+    .menu-h{margin-bottom:40px}
+    .menu-grid{gap:32px}
+    .gallery{padding:0 24px;margin:60px auto;height:auto;grid-template-columns:1fr;gap:10px}
+    .gallery .g-item{aspect-ratio:4/3}
+    .visit{padding:60px 24px;margin-top:60px}
+    .visit-inner{gap:32px}
   }
 </style>
 </head>

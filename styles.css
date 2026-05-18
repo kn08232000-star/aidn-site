@@ -1180,3 +1180,55 @@ main { position: relative; z-index: 2; }
 .pp-cell.r { background: #e34a3a; color: #f4f4f0; }
 .pp-cell.b { background: #3b3bff; color: #f4f4f0; }
 
+/* ===========================================================
+   Mobile / phone optimizations
+   =========================================================== */
+@media (max-width: 720px) {
+  .nav {
+    top: 12px;
+    padding: 8px 10px 8px 14px;
+    gap: 14px;
+  }
+  .brand-name { font-size: 12px; }
+  .nav-cta { padding: 8px 14px; font-size: 12px; }
+
+  .section { padding: 80px 20px; }
+  .section-head { margin-bottom: 40px; max-width: 100%; }
+  .hero { padding: 120px 20px 60px; min-height: auto; }
+  .hero-inner { gap: 22px; }
+
+  .marquee { padding: 12px 0; }
+
+  .contact-card { padding: 48px 24px; }
+  .contact-sub { margin-bottom: 24px; }
+
+  /* Bento card readability */
+  .work-bento { gap: 12px; }
+  .case-title {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    font-size: .92rem;
+    line-height: 1.25;
+  }
+  .case-info { padding: 12px 14px; gap: 10px; }
+  .case-tag { font-size: 9.5px; }
+  .case-cta { font-size: 10px; letter-spacing: .08em; }
+  .case-preview { padding: 12px; }
+  .frame-url { font-size: 9px; padding: 2px 8px; }
+}
+
+@media (max-width: 480px) {
+  .brand-name { display: none; }
+  .hero-cta, .ctas { gap: 8px; width: 100%; flex-direction: column; }
+  .hero-cta .btn, .ctas .btn { width: 100%; justify-content: center; }
+  .btn { padding: 13px 18px; font-size: 14px; }
+  .btn-lg { padding: 15px 20px; font-size: 14.5px; }
+  .contact-actions { width: 100%; flex-direction: column; }
+  .contact-actions .btn { width: 100%; justify-content: center; }
+  .footer { font-size: 11px; padding: 24px 16px; }
+}
+
+/* Remove iOS tap highlight flash on all interactive elements */
+a, button { -webkit-tap-highlight-color: transparent; }
+

@@ -54,7 +54,28 @@
   .editorial{border-bottom:1.5px solid #0a0a0a;overflow:hidden;background:#0a0a0a;position:relative}
   .editorial img{width:100%;display:block;aspect-ratio:21/8;object-fit:cover}
   .editorial-cap{position:absolute;bottom:18px;left:32px;right:32px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;mix-blend-mode:difference;pointer-events:none}
-  @media(max-width:520px){.nav{padding:18px 20px}.nav-r{gap:18px}.hero,.work,.contact{padding-left:20px;padding-right:20px}.ftr{padding:18px 20px}.editorial img{aspect-ratio:16/9}.editorial-cap{left:20px;right:20px;font-size:9.5px}}
+  @media(max-width:720px){
+    .hero{padding:60px 24px 50px}
+    .hero h1{font-size:3.8rem}
+    .hero-meta{margin-bottom:32px;font-size:10.5px}
+    .hero-sub p{font-size:1.05rem}
+    .work,.contact{padding:50px 24px}
+    .work-h{margin-bottom:32px}
+    .contact h2{font-size:3rem}
+    .editorial img{aspect-ratio:16/9}
+  }
+  @media(max-width:520px){
+    .nav{padding:18px 20px;font-size:10.5px}
+    .nav-r{gap:16px}
+    .hero,.work,.contact{padding-left:20px;padding-right:20px}
+    .hero h1{font-size:3.2rem}
+    .ftr{padding:18px 20px;font-size:9.5px}
+    .editorial img{aspect-ratio:4/3}
+    .editorial-cap{left:20px;right:20px;font-size:9px;bottom:14px}
+    .bento{grid-template-columns:1fr;grid-auto-rows:120px}
+    .p-1,.p-2,.p-3,.p-4,.p-5,.p-6,.p-7{grid-column:span 1;grid-row:span 1}
+    .contact-meta{grid-template-columns:1fr;gap:20px}
+  }
 </style>
 </head>
 <body>
