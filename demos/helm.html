@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Helm — Pipelines that close themselves</title>
+<meta name="description" content="Sample site by aidn. Fictional SaaS CRM brand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#0a0a14;color:#f5f5f7;line-height:1.6;min-height:100vh;background-image:radial-gradient(1000px 500px at 80% -10%,rgba(192,132,252,.18),transparent 60%),radial-gradient(800px 400px at -10% 10%,rgba(0,200,255,.12),transparent 60%);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .back{position:fixed;top:20px;left:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);padding:8px 14px;border-radius:999px;z-index:50;background:rgba(10,10,20,.7);backdrop-filter:blur(10px);color:#fff;transition:.2s}
+  .back:hover{border-color:#c084fc;color:#c084fc}
+  .nav{position:sticky;top:0;backdrop-filter:blur(20px);background:rgba(10,10,20,.65);border-bottom:1px solid rgba(255,255,255,.07);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;z-index:10}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.02em}
+  .logo-mark{width:28px;height:28px;background:linear-gradient(135deg,#c084fc,#00c8ff);border-radius:8px;display:grid;place-items:center;color:#0a0a14;font-size:14px;font-weight:800}
+  .nav-c{display:flex;gap:6px;align-items:center;font-size:14px}
+  .nav-c a{color:rgba(255,255,255,.6);padding:8px 14px;border-radius:8px;transition:.2s}
+  .nav-c a:hover{color:#fff;background:rgba(255,255,255,.05)}
+  .nav-cta{padding:9px 16px;background:linear-gradient(135deg,#c084fc,#00c8ff);color:#0a0a14!important;font-weight:600;border-radius:8px}
+  .nav-cta:hover{background:linear-gradient(135deg,#c084fc,#00c8ff);box-shadow:0 0 0 3px rgba(192,132,252,.2)}
+  .hero{max-width:1100px;margin:0 auto;padding:80px 24px 40px;text-align:center}
+  .badge{display:inline-block;padding:6px 14px;border:1px solid rgba(192,132,252,.4);border-radius:999px;font-size:12px;color:#c084fc;margin-bottom:24px;letter-spacing:.02em}
+  .hero h1{font-size:clamp(2.6rem,6.2vw,4.8rem);font-weight:700;line-height:1.02;letter-spacing:-.035em;margin-bottom:22px}
+  .hero h1 .g{background:linear-gradient(135deg,#c084fc,#00c8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:1.2rem;color:rgba(255,255,255,.65);max-width:600px;margin:0 auto 32px}
+  .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+  .btn{padding:14px 24px;border-radius:10px;font-weight:600;font-size:15px;cursor:pointer;border:0;font-family:inherit;transition:.2s}
+  .btn-pri{background:linear-gradient(135deg,#c084fc,#00c8ff);color:#0a0a14}
+  .btn-pri:hover{box-shadow:0 0 0 4px rgba(192,132,252,.15),0 10px 30px rgba(192,132,252,.2)}
+  .btn-sec{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.15)}
+  .btn-sec:hover{background:rgba(255,255,255,.1)}
+  .dash{max-width:1040px;margin:0 auto;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:6px;background:rgba(20,20,30,.6);box-shadow:0 40px 100px rgba(192,132,252,.18)}
+  .dash-bar{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .dash-bar span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15)}
+  .dash-content{padding:22px;display:grid;grid-template-columns:180px 1fr;gap:18px;min-height:300px}
+  @media(max-width:680px){.dash-content{grid-template-columns:1fr}.dash-side{display:none}}
+  .dash-side{display:flex;flex-direction:column;gap:4px;font-size:13px;color:rgba(255,255,255,.5)}
+  .dash-side div{padding:8px 12px;border-radius:6px;cursor:pointer;transition:.2s}
+  .dash-side div:hover{background:rgba(255,255,255,.04);color:#fff}
+  .dash-side div.act{background:rgba(192,132,252,.15);color:#c084fc}
+  .dash-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:520px){.dash-cols{grid-template-columns:1fr}}
+  .dash-col{background:rgba(255,255,255,.025);border-radius:8px;padding:14px;border:1px solid rgba(255,255,255,.04)}
+  .dash-col-h{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;display:flex;justify-content:space-between}
+  .dash-card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:11px;margin-bottom:6px;font-size:12px;cursor:grab;transition:.2s}
+  .dash-card:hover{border-color:rgba(192,132,252,.3);transform:translateY(-1px)}
+  .dash-card-name{color:#fff;font-weight:600;margin-bottom:3px}
+  .dash-card-val{color:rgba(255,255,255,.5);font-size:11px}
+  .dash-card-val .hot{color:#ff6b9a;font-weight:600}
+  .features{max-width:1100px;margin:120px auto;padding:0 24px}
+  .features-h{text-align:center;margin-bottom:48px}
+  .features-h h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.025em;margin-bottom:12px}
+  .features-h p{color:rgba(255,255,255,.55)}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .feat{padding:30px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;transition:.3s}
+  .feat:hover{background:rgba(255,255,255,.05);border-color:rgba(192,132,252,.3);transform:translateY(-2px)}
+  .feat-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(192,132,252,.25),rgba(0,200,255,.25));display:grid;place-items:center;margin-bottom:18px;font-size:18px}
+  .feat h3{font-size:1.15rem;font-weight:600;margin-bottom:8px;letter-spacing:-.01em}
+  .feat p{color:rgba(255,255,255,.6);font-size:14px}
+  .pricing{max-width:1100px;margin:120px auto;padding:0 24px;text-align:center}
+  .pricing h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.025em;margin-bottom:48px}
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .tier{padding:36px 28px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:14px;text-align:left;display:flex;flex-direction:column}
+  .tier.pop{border-color:#c084fc;background:rgba(192,132,252,.05);position:relative;transform:scale(1.02)}
+  .tier.pop::before{content:'Most popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#c084fc,#00c8ff);color:#0a0a14;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+  .tier-name{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+  .tier-price{font-size:2.8rem;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
+  .tier-price span{font-size:1rem;color:rgba(255,255,255,.5);font-weight:400}
+  .tier ul{list-style:none;margin:22px 0;flex:1}
+  .tier li{padding:6px 0;font-size:14px;color:rgba(255,255,255,.7)}
+  .tier li::before{content:'✓';color:#00c8ff;font-weight:700;margin-right:8px}
+  .tier-btn{width:100%;padding:12px;border-radius:8px;background:rgba(255,255,255,.08);color:#fff;border:0;cursor:pointer;font-weight:600;font-family:inherit;transition:.2s}
+  .tier-btn:hover{background:rgba(255,255,255,.12)}
+  .tier.pop .tier-btn{background:linear-gradient(135deg,#c084fc,#00c8ff);color:#0a0a14}
+  .ftr{border-top:1px solid rgba(255,255,255,.07);padding:28px 48px;display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px;margin-top:80px}
+  @media(max-width:560px){.nav{padding:14px 20px}.nav-c a:not(.nav-cta){display:none}}
+</style>
+</head>
+<body>
+<a class="back" href="/">← aidn</a>
+<nav class="nav">
+  <div class="logo"><span class="logo-mark">H</span> Helm</div>
+  <div class="nav-c">
+    <a href="#">Product</a>
+    <a href="#">Pricing</a>
+    <a href="#">Customers</a>
+    <a href="#">Docs</a>
+    <a href="#" class="nav-cta">Start free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">→ Helm 2.0 — now with AI assist</div>
+  <h1>Pipelines that <span class="g">close themselves.</span></h1>
+  <p>Helm is the CRM built around how your team actually sells — keyboard-fast, mobile-native, and quietly relentless.</p>
+  <div class="ctas">
+    <button class="btn btn-pri">Start free trial</button>
+    <button class="btn btn-sec">Watch demo →</button>
+  </div>
+  <div class="dash">
+    <div class="dash-bar"><span></span><span></span><span></span></div>
+    <div class="dash-content">
+      <div class="dash-side">
+        <div class="act">→ Pipeline</div>
+        <div>Contacts</div>
+        <div>Tasks</div>
+        <div>Reports</div>
+        <div>Settings</div>
+      </div>
+      <div class="dash-cols">
+        <div class="dash-col">
+          <div class="dash-col-h"><span>Qualifying</span><span>4</span></div>
+          <div class="dash-card"><div class="dash-card-name">Vega Health</div><div class="dash-card-val">$12k · 2d ago</div></div>
+          <div class="dash-card"><div class="dash-card-name">Northwind Co.</div><div class="dash-card-val">$8.5k · 4d ago</div></div>
+          <div class="dash-card"><div class="dash-card-name">Pulse Labs</div><div class="dash-card-val">$22k · 5d ago</div></div>
+        </div>
+        <div class="dash-col">
+          <div class="dash-col-h"><span>Proposal</span><span>2</span></div>
+          <div class="dash-card"><div class="dash-card-name">Atlas Studios</div><div class="dash-card-val">$48k · today</div></div>
+          <div class="dash-card"><div class="dash-card-name">Mercator Inc.</div><div class="dash-card-val">$31k · 1d ago</div></div>
+        </div>
+        <div class="dash-col">
+          <div class="dash-col-h"><span>Closing</span><span>2</span></div>
+          <div class="dash-card"><div class="dash-card-name">Lumen Health</div><div class="dash-card-val">$92k · <span class="hot">hot</span></div></div>
+          <div class="dash-card"><div class="dash-card-name">Orbit Group</div><div class="dash-card-val">$54k · <span class="hot">hot</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-h">
+    <h2>The CRM your team will actually use.</h2>
+    <p>Stop fighting your tools. Start closing.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat">
+      <div class="feat-icon">⌘</div>
+      <h3>Built for speed</h3>
+      <p>Sub-100ms keyboard-first interface. Move deals through stages without ever lifting your hands off the keys.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">⊡</div>
+      <h3>Mobile native</h3>
+      <p>Full feature parity on your phone. Update deals from anywhere — even offline, syncing the moment you reconnect.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">◐</div>
+      <h3>AI that helps quietly</h3>
+      <p>Smart summaries, follow-up drafts, and forecasts that surface in your workflow — no chatbot theater required.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <h2>Simple pricing.</h2>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-name">Starter</div>
+      <div class="tier-price">$0 <span>/ mo</span></div>
+      <ul><li>Up to 3 users</li><li>100 contacts</li><li>1 pipeline</li><li>Email support</li></ul>
+      <button class="tier-btn">Get started</button>
+    </div>
+    <div class="tier pop">
+      <div class="tier-name">Team</div>
+      <div class="tier-price">$19 <span>/ user / mo</span></div>
+      <ul><li>Unlimited contacts</li><li>Unlimited pipelines</li><li>AI assist included</li><li>Integrations &amp; webhooks</li><li>Priority support</li></ul>
+      <button class="tier-btn">Start free trial</button>
+    </div>
+    <div class="tier">
+      <div class="tier-name">Scale</div>
+      <div class="tier-price">$49 <span>/ user / mo</span></div>
+      <ul><li>Everything in Team</li><li>SSO &amp; SCIM</li><li>Audit logs</li><li>Custom workflows</li><li>Dedicated CSM</li></ul>
+      <button class="tier-btn">Contact sales</button>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">
+  <span>© Helm CRM</span>
+  <span>Made for sellers, by sellers</span>
+</footer>
+</body>
+</html>

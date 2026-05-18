@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio Pelham — Independent design studio</title>
+<meta name="description" content="Sample site by aidn. Fictional brutalist design studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,900;1,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Archivo',sans-serif;background:#f4f4f0;color:#0a0a0a;line-height:1.35;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .back{position:fixed;top:20px;left:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1.5px solid #0a0a0a;padding:8px 14px;z-index:50;background:#f4f4f0;transition:.15s}
+  .back:hover{background:#0a0a0a;color:#f4f4f0}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 32px;border-bottom:1.5px solid #0a0a0a;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .nav-r{display:flex;gap:30px}
+  .nav-r a{transition:.15s}
+  .nav-r a:hover{color:#e34a3a}
+  .hero{padding:80px 32px 60px;border-bottom:1.5px solid #0a0a0a}
+  .hero-meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .hero h1{font-size:clamp(3.4rem,12vw,11rem);font-weight:900;line-height:.85;letter-spacing:-.045em;text-transform:uppercase;margin-bottom:44px}
+  .hero h1 .acc{color:#e3c500;display:inline-block;background:#0a0a0a;padding:0 12px;font-style:italic}
+  .hero-sub{display:grid;grid-template-columns:1fr 1.7fr;gap:48px;align-items:start}
+  @media(max-width:720px){.hero-sub{grid-template-columns:1fr;gap:20px}}
+  .hero-sub p{font-size:1.2rem;font-weight:500;max-width:560px;line-height:1.45}
+  .hero-sub .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .work{padding:60px 32px;border-bottom:1.5px solid #0a0a0a}
+  .work-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:40px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;flex-wrap:wrap;gap:14px}
+  .work-h h2{font-family:'Archivo',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.025em;text-transform:uppercase}
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:140px;gap:12px}
+  @media(max-width:880px){.bento{grid-template-columns:repeat(2,1fr)}}
+  .proj{background:#fff;border:1.5px solid #0a0a0a;padding:22px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+  .proj:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 #0a0a0a}
+  .proj-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+  .proj-title{font-size:clamp(1.2rem,1.6vw,1.85rem);font-weight:900;letter-spacing:-.025em;line-height:.95;text-transform:uppercase}
+  .proj-yr{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.55;margin-top:6px}
+  .p-1{grid-column:span 4;grid-row:span 2;background:#e3c500}
+  .p-2{grid-column:span 2;grid-row:span 1;background:#0a0a0a;color:#f4f4f0}
+  .p-3{grid-column:span 2;grid-row:span 2}
+  .p-4{grid-column:span 2;grid-row:span 1}
+  .p-5{grid-column:span 2;grid-row:span 1;background:#e34a3a;color:#f4f4f0}
+  .p-6{grid-column:span 2;grid-row:span 1}
+  .p-7{grid-column:span 4;grid-row:span 1;background:#3b3bff;color:#f4f4f0}
+  @media(max-width:880px){.p-1,.p-2,.p-3,.p-4,.p-5,.p-6,.p-7{grid-column:span 2;grid-row:span 1}}
+  .contact{padding:80px 32px;border-bottom:1.5px solid #0a0a0a}
+  .contact h2{font-size:clamp(2.5rem,8vw,6rem);font-weight:900;letter-spacing:-.04em;text-transform:uppercase;line-height:.9;margin-bottom:36px}
+  .contact h2 em{font-style:italic;background:#e3c500;padding:0 10px}
+  .contact-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;font-family:'JetBrains Mono',monospace;font-size:14px}
+  .contact-meta div{border-top:1.5px solid #0a0a0a;padding-top:14px}
+  .contact-meta .l{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:6px}
+  .ftr{padding:22px 32px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:520px){.nav{padding:18px 20px}.nav-r{gap:18px}.hero,.work,.contact{padding-left:20px;padding-right:20px}.ftr{padding:18px 20px}}
+</style>
+</head>
+<body>
+<a class="back" href="/">← aidn</a>
+<nav class="nav">
+  <div>Studio Pelham · Est. 2024</div>
+  <div class="nav-r">
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Index ↗</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-meta">
+    <span>Independent design studio</span>
+    <span>London / Remote</span>
+    <span>Est. 2024</span>
+  </div>
+  <h1>Bold brands<br>for ambitious<br><span class="acc">people.</span></h1>
+  <div class="hero-sub">
+    <div class="label">— About</div>
+    <p>Studio Pelham is a two-person design studio working on brand identity, editorial, and digital projects for founders who refuse to look like everyone else. Open for new work from Q3 onward.</p>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="work-h">
+    <h2>Selected work</h2>
+    <span>7 of 47 shown</span>
+  </div>
+  <div class="bento">
+    <div class="proj p-1">
+      <div><span class="proj-tag">— Brand identity</span></div>
+      <div>
+        <div class="proj-title">Halcyon<br>Distillery</div>
+        <div class="proj-yr">2025</div>
+      </div>
+    </div>
+    <div class="proj p-2">
+      <div><span class="proj-tag">— Editorial</span></div>
+      <div>
+        <div class="proj-title">Field Notes</div>
+        <div class="proj-yr">2025</div>
+      </div>
+    </div>
+    <div class="proj p-3">
+      <div><span class="proj-tag">— Website</span></div>
+      <div>
+        <div class="proj-title">Tessera<br>Architects</div>
+        <div class="proj-yr">2024</div>
+      </div>
+    </div>
+    <div class="proj p-4">
+      <div><span class="proj-tag">— Packaging</span></div>
+      <div>
+        <div class="proj-title">Rind Co.</div>
+        <div class="proj-yr">2024</div>
+      </div>
+    </div>
+    <div class="proj p-5">
+      <div><span class="proj-tag">— Identity</span></div>
+      <div>
+        <div class="proj-title">Public Hours</div>
+        <div class="proj-yr">2024</div>
+      </div>
+    </div>
+    <div class="proj p-6">
+      <div><span class="proj-tag">— Typography</span></div>
+      <div>
+        <div class="proj-title">Mono Press</div>
+        <div class="proj-yr">2024</div>
+      </div>
+    </div>
+    <div class="proj p-7">
+      <div><span class="proj-tag">— Campaign</span></div>
+      <div>
+        <div class="proj-title">Northbound Records — 2024 tour</div>
+        <div class="proj-yr">2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Want to <em>work</em> together?</h2>
+  <div class="contact-meta">
+    <div>
+      <div class="l">General</div>
+      <div>studio@pelham.design</div>
+    </div>
+    <div>
+      <div class="l">Projects</div>
+      <div>projects@pelham.design</div>
+    </div>
+    <div>
+      <div class="l">Press</div>
+      <div>press@pelham.design</div>
+    </div>
+    <div>
+      <div class="l">Office</div>
+      <div>17 Bermondsey St<br>London SE1 3UN</div>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">
+  <span>© Studio Pelham 2024 — 2025</span>
+  <span>Site v3.1 · Made in London</span>
+</footer>
+</body>
+</html>

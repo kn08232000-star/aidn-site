@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayside Coffee Co. — Coffee, slowly</title>
+<meta name="description" content="Sample site by aidn. Fictional neighborhood cafe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#f7f0e3;color:#3a2418;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  .back{position:fixed;top:20px;left:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid #3a2418;padding:8px 14px;border-radius:999px;z-index:50;background:#f7f0e3;transition:.2s}
+  .back:hover{background:#3a2418;color:#f7f0e3}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:24px 48px;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+  .nav-brand{font-family:'Fraunces',serif;font-size:24px;font-weight:500;letter-spacing:-.01em;text-transform:none}
+  .nav-r{display:flex;gap:30px}
+  .nav-r a{opacity:.65;transition:.2s}
+  .nav-r a:hover{opacity:1;color:#b54e2c}
+  .hero{position:relative;min-height:78vh;display:flex;align-items:center;padding:40px 48px;overflow:hidden}
+  .hero-photo{position:absolute;right:0;top:0;bottom:0;width:50%;background:radial-gradient(circle at 35% 30%,#d4a878 0,transparent 50%),radial-gradient(circle at 70% 65%,#8b5a3c 0,transparent 55%),radial-gradient(circle at 55% 90%,#3a2418 0,transparent 60%),linear-gradient(135deg,#b07954,#5d3a23)}
+  .hero-photo::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(58,36,24,.15),rgba(58,36,24,.55))}
+  .hero-content{position:relative;z-index:2;max-width:580px}
+  .tag{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#b54e2c;margin-bottom:22px}
+  .hero h1{font-family:'Fraunces',serif;font-size:clamp(3.4rem,9vw,7rem);font-weight:400;line-height:.95;letter-spacing:-.028em;margin-bottom:24px}
+  .hero h1 em{font-style:italic;color:#b54e2c}
+  .hero p{font-size:1.15rem;color:#5d3a23;max-width:400px;margin-bottom:30px}
+  .hours-pill{display:inline-flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(255,255,255,.65);border:1px solid rgba(58,36,24,.15);border-radius:999px;font-size:13px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#5b8c4a;box-shadow:0 0 12px #5b8c4a;animation:p 2s ease-in-out infinite}
+  @keyframes p{50%{opacity:.5}}
+  .about{max-width:840px;margin:120px auto;padding:0 48px;text-align:center}
+  .about p{font-family:'Fraunces',serif;font-size:clamp(1.4rem,2.2vw,1.95rem);font-weight:400;line-height:1.4;font-style:italic;color:#5d3a23}
+  .menu{max-width:1100px;margin:120px auto;padding:0 48px}
+  .menu-h{text-align:center;margin-bottom:64px}
+  .menu-h .tag{margin-bottom:14px}
+  .menu-h h2{font-family:'Fraunces',serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:400;letter-spacing:-.02em}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:44px}
+  .menu-item{border-top:1px solid rgba(58,36,24,.2);padding-top:22px}
+  .menu-item-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:12px}
+  .menu-item-name{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:500}
+  .menu-item-price{font-size:.95rem;color:#b54e2c;white-space:nowrap}
+  .menu-item-desc{font-size:.94rem;color:#7a5a4a}
+  .visit{background:#3a2418;color:#f7f0e3;padding:80px 48px;margin-top:100px}
+  .visit-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  @media(max-width:760px){.visit-inner{grid-template-columns:1fr;gap:40px}}
+  .visit h3{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:400;margin-bottom:18px}
+  .visit-row{padding:13px 0;border-bottom:1px solid rgba(247,240,227,.13);display:flex;justify-content:space-between;font-size:14px}
+  .visit-row span:first-child{opacity:.6;text-transform:uppercase;letter-spacing:.12em;font-size:11.5px}
+  .addr-block{font-family:'Fraunces',serif;font-size:1.2rem;line-height:1.5;margin-bottom:14px}
+  .addr-sub{opacity:.7;font-size:14px}
+  .ftr{padding:22px 48px;text-align:center;font-size:11.5px;letter-spacing:.12em;opacity:.5;background:#3a2418;color:#f7f0e3;text-transform:uppercase}
+  @media(max-width:720px){
+    .nav{padding:18px 24px}
+    .nav-r{display:none}
+    .hero{padding:40px 24px;flex-direction:column;justify-content:flex-end;min-height:75vh}
+    .hero-photo{width:100%;opacity:.35}
+    .hero-content{margin-top:auto}
+    .visit{padding:60px 24px}
+  }
+</style>
+</head>
+<body>
+<a class="back" href="/">← aidn</a>
+<nav class="nav">
+  <div class="nav-brand">Wayside</div>
+  <div class="nav-r">
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+    <a href="#">Shop beans</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-content">
+    <div class="tag">Est. 2019 · Vancouver</div>
+    <h1>Coffee, <em>slowly.</em></h1>
+    <p>A small neighborhood roaster on the corner of 8th and Lawrence. We open at 7. Stay as long as you like.</p>
+    <div class="hours-pill"><span class="dot"></span> Open now · until 5pm</div>
+  </div>
+</section>
+
+<section class="about">
+  <p>"We pull every shot by hand, roast in batches that fit on a single shelf, and pour coffee for people who want to taste it — not Instagram it."</p>
+</section>
+
+<section class="menu" id="menu">
+  <div class="menu-h">
+    <div class="tag">— The menu —</div>
+    <h2>A short list, done right.</h2>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">Espresso</span><span class="menu-item-price">$4</span></div>
+      <p class="menu-item-desc">Double shot. House blend, rotated seasonally.</p>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">Cortado</span><span class="menu-item-price">$5</span></div>
+      <p class="menu-item-desc">Equal parts espresso and steamed milk. 4oz.</p>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">Flat white</span><span class="menu-item-price">$5.50</span></div>
+      <p class="menu-item-desc">Microfoam, no foam helmet. 6oz.</p>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">Filter</span><span class="menu-item-price">$5</span></div>
+      <p class="menu-item-desc">V60 or Chemex. Ask what's brewing today.</p>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">House cold brew</span><span class="menu-item-price">$6</span></div>
+      <p class="menu-item-desc">Steeped 18 hours. Served on ice or with milk.</p>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-h"><span class="menu-item-name">Pastries</span><span class="menu-item-price">$4–7</span></div>
+      <p class="menu-item-desc">Baked next door. Croissants, banana bread, friends.</p>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="visit-inner">
+    <div>
+      <h3>Find us.</h3>
+      <p class="addr-block">812 Lawrence Street<br>Vancouver, BC V5K 2L9</p>
+      <p class="addr-sub">Two blocks from the SkyTrain. Bring a book — there's no Wi-Fi, on purpose.</p>
+    </div>
+    <div>
+      <h3>Hours.</h3>
+      <div class="visit-row"><span>Mon — Fri</span><span>7am — 5pm</span></div>
+      <div class="visit-row"><span>Saturday</span><span>8am — 4pm</span></div>
+      <div class="visit-row"><span>Sunday</span><span>8am — 2pm</span></div>
+      <div class="visit-row"><span>Holidays</span><span>Check Instagram</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">© Wayside Coffee Co. · Hand-poured since 2019</footer>
+</body>
+</html>
