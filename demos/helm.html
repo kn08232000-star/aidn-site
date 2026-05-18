@@ -77,6 +77,20 @@
   .tier-btn:hover{background:rgba(255,255,255,.12)}
   .tier.pop .tier-btn{background:linear-gradient(135deg,#c084fc,#00c8ff);color:#0a0a14}
   .ftr{border-top:1px solid rgba(255,255,255,.07);padding:28px 48px;display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px;margin-top:80px}
+  .trusted{max-width:1100px;margin:60px auto 0;padding:0 24px;text-align:center}
+  .trusted-l{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:18px}
+  .trusted-logos{display:flex;flex-wrap:wrap;justify-content:center;gap:36px;align-items:center;opacity:.7}
+  .trusted-logos span{font-family:'Inter',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em;color:rgba(255,255,255,.55);transition:color .2s ease}
+  .trusted-logos span:hover{color:#fff}
+  .life{max-width:1100px;margin:120px auto 0;padding:0 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:center}
+  @media(max-width:760px){.life{grid-template-columns:1fr;gap:32px}}
+  .life-img{aspect-ratio:5/4;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,rgba(192,132,252,.3),rgba(0,200,255,.3));position:relative}
+  .life-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .life-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(192,132,252,.18),transparent 50%);pointer-events:none}
+  .life-c .badge{margin-bottom:18px}
+  .life-c h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-.025em;margin-bottom:14px;line-height:1.1}
+  .life-c h2 .g{background:linear-gradient(135deg,#c084fc,#00c8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .life-c p{color:rgba(255,255,255,.65);margin-bottom:22px}
   @media(max-width:560px){.nav{padding:14px 20px}.nav-c a:not(.nav-cta){display:none}}
 </style>
 </head>
@@ -133,6 +147,18 @@
   </div>
 </section>
 
+<section class="trusted">
+  <div class="trusted-l">Trusted by sales teams at</div>
+  <div class="trusted-logos">
+    <span>Northwind</span>
+    <span>Vega Health</span>
+    <span>Atlas Studios</span>
+    <span>Mercator</span>
+    <span>Orbit Group</span>
+    <span>Lumen Co.</span>
+  </div>
+</section>
+
 <section class="features">
   <div class="features-h">
     <h2>The CRM your team will actually use.</h2>
@@ -178,6 +204,18 @@
       <ul><li>Everything in Team</li><li>SSO &amp; SCIM</li><li>Audit logs</li><li>Custom workflows</li><li>Dedicated CSM</li></ul>
       <button class="tier-btn">Contact sales</button>
     </div>
+  </div>
+</section>
+
+<section class="life">
+  <div class="life-img">
+    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80&auto=format&fit=crop" alt="Sales team using Helm CRM" loading="lazy">
+  </div>
+  <div class="life-c">
+    <span class="badge">→ For teams of every size</span>
+    <h2>Built for the way your team <span class="g">actually sells.</span></h2>
+    <p>From two-person startups to 200-person sales orgs — Helm scales without getting in your way. No mandatory training. No 90-day onboarding. Just better pipelines, from week one.</p>
+    <button class="btn btn-pri">Start your free trial</button>
   </div>
 </section>
 

@@ -51,7 +51,10 @@
   .contact-meta div{border-top:1.5px solid #0a0a0a;padding-top:14px}
   .contact-meta .l{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:6px}
   .ftr{padding:22px 32px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-  @media(max-width:520px){.nav{padding:18px 20px}.nav-r{gap:18px}.hero,.work,.contact{padding-left:20px;padding-right:20px}.ftr{padding:18px 20px}}
+  .editorial{border-bottom:1.5px solid #0a0a0a;overflow:hidden;background:#0a0a0a;position:relative}
+  .editorial img{width:100%;display:block;aspect-ratio:21/8;object-fit:cover}
+  .editorial-cap{position:absolute;bottom:18px;left:32px;right:32px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;mix-blend-mode:difference;pointer-events:none}
+  @media(max-width:520px){.nav{padding:18px 20px}.nav-r{gap:18px}.hero,.work,.contact{padding-left:20px;padding-right:20px}.ftr{padding:18px 20px}.editorial img{aspect-ratio:16/9}.editorial-cap{left:20px;right:20px;font-size:9.5px}}
 </style>
 </head>
 <body>
@@ -75,6 +78,14 @@
   <div class="hero-sub">
     <div class="label">— About</div>
     <p>Studio Pelham is a two-person design studio working on brand identity, editorial, and digital projects for founders who refuse to look like everyone else. Open for new work from Q3 onward.</p>
+  </div>
+</section>
+
+<section class="editorial">
+  <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1800&q=80&auto=format&fit=crop" alt="Editorial photograph from a recent Studio Pelham project" loading="lazy">
+  <div class="editorial-cap">
+    <span>— Featured · Halcyon Distillery</span>
+    <span>↘ Brand identity · 2025</span>
   </div>
 </section>
 
